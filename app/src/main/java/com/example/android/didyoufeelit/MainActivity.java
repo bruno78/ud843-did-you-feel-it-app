@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Perform the HTTP request for earthquake data and process the response.
+        // Call async task to retrieve data.
         new EarthquakeAsyncTask().execute(USGS_REQUEST_URL);
 
 
@@ -62,11 +62,12 @@ public class MainActivity extends AppCompatActivity {
         magnitudeTextView.setText(earthquake.perceivedStrength);
     }
 
-    public class EarthquakeAsyncTask extends AsyncTask<String, Void, Event> {
+    private class EarthquakeAsyncTask extends AsyncTask<String, Void, Event> {
 
         @Override
         protected Event doInBackground(String... strings) {
 
+            // Make network call
             return Utils.fetchEarthquakeData(strings[0]);
 
         }

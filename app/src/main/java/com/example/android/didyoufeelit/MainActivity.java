@@ -65,10 +65,11 @@ public class MainActivity extends AppCompatActivity {
     private class EarthquakeAsyncTask extends AsyncTask<String, Void, Event> {
 
         @Override
-        protected Event doInBackground(String... strings) {
+        protected Event doInBackground(String... urls) {
 
+            if(urls.length < 1 || urls[0] == null) return null;
             // Make network call
-            return Utils.fetchEarthquakeData(strings[0]);
+            return Utils.fetchEarthquakeData(urls[0]);
 
         }
 
@@ -76,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Event event) {
             super.onPostExecute(event);
 
+            if(event == null) return;
             // Update the information displayed to the user.
             updateUi(event);
 
